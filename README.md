@@ -24,3 +24,6 @@ Aplicación web para gestionar eventos, comprar entradas y validar acceso median
 
 - Adrian Esteban Campos Marin — Front o Back
 - Santiago Orejuela Cano — Front o Back
+
+## npm run dev -- para iniciar el frontend
+## node index.js -- para iniciar el backend
