@@ -5,12 +5,10 @@ const conexion = require('./db/conexion')
 const crearTablas = require('./db/tablas')
 const authRoutes = require('./routes/auth.routes')
 const eventosRoutes = require('./routes/eventos.routes')
+const entradasRoutes = require('./routes/entradas.routes')
 
 const app = express()
 const PORT = process.env.PORT || 3000
-
-const entradasRoutes = require('./routes/entradas.routes')
-app.use('/api/entradas', entradasRoutes)
 
 app.use(cors({
   origin: '*',
@@ -21,6 +19,7 @@ app.use(express.json())
 
 app.use('/auth', authRoutes)
 app.use('/api/eventos', eventosRoutes)
+app.use('/api/entradas', entradasRoutes)
 
 app.get('/', (req, res) => {
   res.json({ mensaje: 'Backend Gestor de Eventos funcionando' })
