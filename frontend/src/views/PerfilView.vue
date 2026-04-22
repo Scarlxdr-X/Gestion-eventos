@@ -1,16 +1,15 @@
 <template>
   <div class="pagina">
     <nav class="navbar">
-      <span class="logo">🎟️ Gestión de Eventos</span>
-      <div class="nav-links">
-        <router-link to="/">Inicio</router-link>
-        <router-link to="/perfil">Mi Perfil</router-link>
-        <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
-      </div>
-    </nav>
+  <router-link to="/" class="logo">🎟️ Gestión de Eventos</router-link>
+  <div class="nav-links">
+    <router-link to="/">Inicio</router-link>
+    <router-link to="/perfil">Perfil</router-link>
+    <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
+  </div>
+</nav>
 
     <div class="contenedor">
-      <!-- Info del usuario -->
       <div class="perfil-card">
         <div class="perfil-avatar">{{ iniciales }}</div>
         <div class="perfil-info">
@@ -20,7 +19,6 @@
         </div>
       </div>
 
-      <!-- Mis entradas -->
       <div class="seccion">
         <h2>Mis Entradas</h2>
         <p v-if="cargando" class="estado">Cargando entradas...</p>
@@ -102,7 +100,7 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   background-color: #1a1a1a;
   border-bottom: 1px solid #2a2a2a;
 }
@@ -111,11 +109,12 @@ onMounted(async () => {
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffffff;
+  text-decoration: none;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -127,6 +126,26 @@ onMounted(async () => {
 
 .nav-links a:hover {
   color: #ffffff;
+}
+
+.avatar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: #4f46e5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.8rem !important;
+  font-weight: bold !important;
+  color: white !important;
+  text-decoration: none !important;
+  transition: background 0.2s !important;
+}
+
+.avatar:hover {
+  background: #4338ca !important;
+  color: white !important;
 }
 
 .btn-logout {

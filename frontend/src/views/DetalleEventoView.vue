@@ -1,13 +1,13 @@
 <template>
   <div class="pagina">
     <nav class="navbar">
-      <span class="logo">🎟️ Gestión de Eventos</span>
-      <div class="nav-links">
-        <router-link to="/">Inicio</router-link>
-        <router-link to="/perfil">Mi Perfil</router-link>
-        <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
-      </div>
-    </nav>
+  <router-link to="/" class="logo">🎟️ Gestión de Eventos</router-link>
+  <div class="nav-links">
+    <router-link to="/">Inicio</router-link>
+    <router-link to="/perfil">Perfil</router-link>
+    <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
+  </div>
+</nav>
     <div class="contenedor">
       <p v-if="cargando" class="estado">Cargando evento...</p>
       <p v-if="error" class="error">{{ error }}</p>
@@ -44,7 +44,6 @@
       </div>
     </div>
 
-    <!-- Modal de confirmacion -->
     <div class="modal-overlay" v-if="mostrarModal" @click.self="cerrarModal">
       <div class="modal">
         <h2>Confirmar compra</h2>
@@ -64,10 +63,9 @@
       </div>
     </div>
 
-    <!-- Modal QR -->
     <div class="modal-overlay" v-if="entradaComprada" @click.self="cerrarQR">
       <div class="modal">
-        <h2>¡Compra exitosa! 🎉</h2>
+        <h2>Compra exitosa 🎉</h2>
         <p class="modal-subtitulo">Guarda tu codigo QR para ingresar al evento</p>
         <div class="qr-contenedor">
           <img :src="entradaComprada.qr_imagen" alt="Codigo QR" class="qr-imagen" />
@@ -83,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '../api'
 import { formatearFecha, formatearPrecio } from '../utils/formato'
@@ -97,23 +95,25 @@ const mostrarModal = ref(false)
 const comprando = ref(false)
 const entradaComprada = ref(null)
 
+const usuario = computed(() => {
+  const data = localStorage.getItem('usuario')
+  return data ? JSON.parse(data) : { nombre: '', email: '' }
+})
+
+const iniciales = computed(() => {
+  if (!usuario.value.nombre) return '?'
+  return usuario.value.nombre.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+})
+
 const cerrarSesion = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('usuario')
   router.push('/login')
 }
 
-const abrirModal = () => {
-  mostrarModal.value = true
-}
-
-const cerrarModal = () => {
-  mostrarModal.value = false
-}
-
-const cerrarQR = () => {
-  entradaComprada.value = null
-}
+const abrirModal = () => mostrarModal.value = true
+const cerrarModal = () => mostrarModal.value = false
+const cerrarQR = () => entradaComprada.value = null
 
 const confirmarCompra = async () => {
   comprando.value = true
@@ -158,7 +158,7 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   background-color: #1a1a1a;
   border-bottom: 1px solid #2a2a2a;
 }
@@ -166,11 +166,13 @@ onMounted(async () => {
 .logo {
   font-size: 1.2rem;
   font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -182,6 +184,26 @@ onMounted(async () => {
 
 .nav-links a:hover {
   color: #ffffff;
+}
+
+.avatar {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background: #4f46e5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.8rem !important;
+  font-weight: bold !important;
+  color: white !important;
+  text-decoration: none !important;
+  transition: background 0.2s !important;
+}
+
+.avatar:hover {
+  background: #4338ca !important;
+  color: white !important;
 }
 
 .btn-logout {
