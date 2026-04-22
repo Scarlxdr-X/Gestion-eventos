@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegistroView from '../views/RegistroView.vue'
 import EventosView from '../views/EventosView.vue'
 import DetalleEventoView from '../views/DetalleEventoView.vue'
+import PerfilView from '../views/PerfilView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -28,6 +29,11 @@ const router = createRouter({
     {
       path: '/eventos/:id',
       component: DetalleEventoView,
+      meta: { requiereAuth: true }
+    },
+    {
+      path: '/perfil',
+      component: PerfilView,
       meta: { requiereAuth: true }
     }
   ]

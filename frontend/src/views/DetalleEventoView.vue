@@ -4,6 +4,7 @@
       <span class="logo">🎟️ Gestión de Eventos</span>
       <div class="nav-links">
         <router-link to="/">Inicio</router-link>
+        <router-link to="/perfil">Mi Perfil</router-link>
         <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
       </div>
     </nav>
