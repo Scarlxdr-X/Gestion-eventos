@@ -25,9 +25,9 @@ const createEvento = (req, res) => {
 }
 
 const updateEvento = (req, res) => {
-  const { nombre, descripcion, fecha, lugar, precio, stock_total } = req.body
-  const sql = 'UPDATE eventos SET nombre=?, descripcion=?, fecha=?, lugar=?, precio=?, stock_total=? WHERE id=?'
-  conexion.query(sql, [nombre, descripcion, fecha, lugar, precio, stock_total, req.params.id], (error) => {
+  const { nombre, descripcion, fecha, lugar, precio, stock_total, imagen } = req.body
+  const sql = 'UPDATE eventos SET nombre=?, descripcion=?, fecha=?, lugar=?, precio=?, stock_total=?, imagen=? WHERE id=?'
+  conexion.query(sql, [nombre, descripcion, fecha, lugar, precio, stock_total, imagen, req.params.id], (error) => {
     if (error) return res.status(500).json({ mensaje: 'Error actualizando evento' })
     res.json({ mensaje: 'Evento actualizado' })
   })

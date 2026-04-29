@@ -1,13 +1,14 @@
 <template>
   <div class="pagina">
     <nav class="navbar">
-  <router-link to="/" class="logo">🎟️ Gestión de Eventos</router-link>
-  <div class="nav-links">
-    <router-link to="/">Inicio</router-link>
-    <router-link to="/perfil">Perfil</router-link>
-    <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
-  </div>
-</nav>
+      <router-link to="/" class="logo">🎟️ Gestión de Eventos</router-link>
+      <div class="nav-links">
+        <router-link to="/">Inicio</router-link>
+        <router-link to="/perfil">Perfil</router-link>
+        <router-link v-if="esAdmin" to="/admin">Admin</router-link>
+        <button @click="cerrarSesion" class="btn-logout">Cerrar sesión</button>
+      </div>
+    </nav>
 
     <div class="contenedor">
       <div class="perfil-card">
@@ -64,6 +65,8 @@ const iniciales = computed(() => {
   if (!usuario.value.nombre) return '?'
   return usuario.value.nombre.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
 })
+
+const esAdmin = computed(() => usuario.value?.rol === 'admin')
 
 const generarQRUrl = (codigo) => {
   return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${codigo}`
@@ -126,26 +129,6 @@ onMounted(async () => {
 
 .nav-links a:hover {
   color: #ffffff;
-}
-
-.avatar {
-  width: 36px !important;
-  height: 36px !important;
-  border-radius: 50% !important;
-  background: #4f46e5 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 0.8rem !important;
-  font-weight: bold !important;
-  color: white !important;
-  text-decoration: none !important;
-  transition: background 0.2s !important;
-}
-
-.avatar:hover {
-  background: #4338ca !important;
-  color: white !important;
 }
 
 .btn-logout {
